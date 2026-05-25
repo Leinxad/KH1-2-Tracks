@@ -1,0 +1,197 @@
+name: Build and publish track patches
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'kh1/tracks/Classic/**/*.scd'
+      - 'kh1/tracks/Remastered/**/*.scd'
+      - 'kh2/tracks/Classic/**/*.scd'
+      - 'kh2/tracks/Remastered/**/*.scd'
+      - 'kh1/raw/**'
+  workflow_dispatch:
+    inputs:
+      build_all:
+        description: 'Rebuild ALL patches (not just changed)'
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    outputs:
+      count: ${{ steps.changed.outputs.count }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect affected folders
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.build_all }}" = "true" ]; then
+            folders=$(find kh1/tracks kh2/tracks -mindepth 1 -maxdepth 1 -type d \
+              | grep -E '/(Classic|Remastered)$' | sort)
+            kh1_raw_changed=true
+          else
+            folders=$(git diff --name-only HEAD~1 HEAD \
+              | grep -E '^(kh1|kh2)/tracks/(Classic|Remastered)/.*\.scd$' \
+              | sed -E 's|^(kh[12]/tracks/[^/]+)/.*|\1|' \
+              | sort -u)
+            if git diff --name-only HEAD~1 HEAD | grep -q '^kh1/raw/'; then
+              kh1_raw_changed=true
+            else
+              kh1_raw_changed=false
+            fi
+          fi
+          echo "folders<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$folders" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "kh1_raw_changed=$kh1_raw_changed" >> "$GITHUB_OUTPUT"
+          folder_count=$(echo "$folders" | grep -c '.' || echo 0)
+          if [ "$kh1_raw_changed" = "true" ] && [ "$folder_count" -eq 0 ]; then
+            folder_count=1
+          fi
+          echo "count=$folder_count" >> "$GITHUB_OUTPUT"
+
+      - name: Build patches
+        if: steps.changed.outputs.count != '0'
+        run: |
+          mkdir -p dist
+          if [ "${{ steps.changed.outputs.kh1_raw_changed }}" = "true" ]; then
+            affected_games="kh1"
+          else
+            affected_games=""
+          fi
+          while IFS= read -r folder; do
+            [ -z "$folder" ] && continue
+            game=$(echo "$folder" | cut -d/ -f1)
+            version=$(echo "$folder" | cut -d/ -f3)
+            ext="${game}pcpatch"
+            name="${game}-${version}.${ext}"
+            echo "Building $name..."
+            tmp="tmp_${game}_${version}"
+            rm -rf "$tmp" && mkdir -p "$tmp"
+            jq -c '.[]' "${game}.json" | while IFS= read -r row; do
+              changed=$(echo "$row" | jq -r '.Changed')
+              [ "$changed" != "Y" ] && continue
+              file=$(echo "$row" | jq -r '.File')
+              scd="${folder}/${file}"
+              [ ! -f "$scd" ] && continue
+              first=$(echo "$row" | jq -r '."First Destination"')
+              second=$(echo "$row" | jq -r '."Second Destination"')
+              for dest_raw in "$first" "$second"; do
+                [ "$dest_raw" = '""' ] && continue
+                [ "$dest_raw" = "null" ] && continue
+                [ -z "$dest_raw" ] && continue
+                dest=$(echo "$dest_raw" | tr '\\' '/')
+                mkdir -p "${tmp}/${dest}"
+                cp "$scd" "${tmp}/${dest}${file}"
+              done
+            done
+            (cd "$tmp" && zip -r "../dist/${name}" .)
+            rm -rf "$tmp"
+            affected_games="$affected_games $game"
+          done <<< "${{ steps.changed.outputs.folders }}"
+          for game in $(echo "$affected_games" | tr ' ' '\n' | sort -u | grep -v '^$'); do
+            ext="${game}pcpatch"
+            name="${game}-Switcher.${ext}"
+            echo "Building $name..."
+            tmp="tmp_${game}_Switcher"
+            rm -rf "$tmp" && mkdir -p "$tmp"
+            jq -c '.[]' "${game}.json" | while IFS= read -r row; do
+              changed=$(echo "$row" | jq -r '.Changed')
+              [ "$changed" != "Y" ] && continue
+              file=$(echo "$row" | jq -r '.File')
+              first=$(echo "$row" | jq -r '."First Destination"')
+              second=$(echo "$row" | jq -r '."Second Destination"')
+              for dest_raw in "$first" "$second"; do
+                [ "$dest_raw" = '""' ] && continue
+                [ "$dest_raw" = "null" ] && continue
+                [ -z "$dest_raw" ] && continue
+                dest=$(echo "$dest_raw" | tr '\\' '/')
+                classic_dest=$(echo "$dest" | sed 's|/bgm/|/bg2/|; s|/vagstream/|/vagstrea2/|; s|/amusic/|/amusi2/|')
+                remastered_dest=$(echo "$dest" | sed 's|/bgm/|/bg3/|; s|/vagstream/|/vagstrea3/|; s|/amusic/|/amusi3/|')
+                [ "$classic_dest" = "$dest" ] && continue
+                classic_scd="${game}/tracks/Classic/${file}"
+                remastered_scd="${game}/tracks/Remastered/${file}"
+                if [ -f "$classic_scd" ]; then
+                  mkdir -p "${tmp}/${classic_dest}"
+                  cp "$classic_scd" "${tmp}/${classic_dest}${file}"
+                fi
+                if [ -f "$remastered_scd" ]; then
+                  mkdir -p "${tmp}/${remastered_dest}"
+                  cp "$remastered_scd" "${tmp}/${remastered_dest}${file}"
+                fi
+              done
+            done
+            if [ "$game" = "kh1" ] && [ -d "kh1/raw" ]; then
+              for raw_file in kh1/raw/*; do
+                [ -f "$raw_file" ] || continue
+                raw_name=$(basename "$raw_file")
+                jq -c '.[] | select(.Changed == "Y")' kh1.json | while IFS= read -r raw_row; do
+                  raw_first=$(echo "$raw_row" | jq -r '."First Destination"')
+                  raw_second=$(echo "$raw_row" | jq -r '."Second Destination"')
+                  for raw_dest_raw in "$raw_first" "$raw_second"; do
+                    [ "$raw_dest_raw" = '""' ] && continue
+                    [ "$raw_dest_raw" = "null" ] && continue
+                    [ -z "$raw_dest_raw" ] && continue
+                    raw_dest=$(echo "$raw_dest_raw" | tr '\\' '/')
+                    echo "$raw_dest" | grep -qF "/${raw_name}/" || continue
+                    raw_classic=$(echo "$raw_dest" | sed 's|/remastered/|/raw/|; s|/amusic/|/amusi2/|')
+                    raw_remastered=$(echo "$raw_dest" | sed 's|/remastered/|/raw/|; s|/amusic/|/amusi3/|')
+                    [ "$raw_classic" = "$raw_dest" ] && continue
+                    raw_classic_file="${raw_classic%/}"
+                    raw_remastered_file="${raw_remastered%/}"
+                    mkdir -p "${tmp}/$(dirname "$raw_classic_file")"
+                    cp "$raw_file" "${tmp}/${raw_classic_file}"
+                    mkdir -p "${tmp}/$(dirname "$raw_remastered_file")"
+                    cp "$raw_file" "${tmp}/${raw_remastered_file}"
+                  done
+                done
+              done
+            fi
+            (cd "$tmp" && zip -r "../dist/${name}" .)
+            rm -rf "$tmp"
+          done
+
+      - name: Upload patches as artifact
+        if: steps.changed.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: track-patches
+          path: dist/*pcpatch
+          retention-days: 1
+
+      - name: No changes detected
+        if: steps.changed.outputs.count == '0'
+        run: echo "No SCD files changed — nothing to build."
+
+  publish:
+    needs: build
+    if: needs.build.outputs.count != '0'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download patches artifact
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: track-patches
+
+      - name: Upload to KH1-2-Tracks release
+        if: steps.download.outcome == 'success'
+        run: |
+          gh release create tracks --title "Track Bundles" --notes "Auto-generated track patch bundles." 2>/dev/null || true
+          for f in *pcpatch; do
+            echo "Uploading $f..."
+            gh release upload tracks "$f" --clobber
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: No patches to publish
+        if: steps.download.outcome != 'success'
+        run: echo "No track-patches artifact found — build produced no patches."

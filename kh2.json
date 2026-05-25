@@ -1,0 +1,1102 @@
+[
+	{
+		"PC Number": "50",
+		"Name": "Dive Into The Heart -Destati-",
+		"Description": "Dive Into The Heart Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music050.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "51",
+		"Name": "Fragments Of Sorrow",
+		"Description": "Dive Into The Heart Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music051.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "52",
+		"Name": "The Afternoon Street",
+		"Description": "Twilight Town Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music052.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "53",
+		"Name": "Working Together (Twilight Town)",
+		"Description": "Twilight Town Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music053.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "54",
+		"Name": "Sacred Moon",
+		"Description": "The World That Never Was Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music054.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "55",
+		"Name": "Deep Drive",
+		"Description": "The World That Never Was Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music055.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "59",
+		"Name": "A Fight To The Death",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music059.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "60",
+		"Name": "Darkness Of The Unknown (Part 1)",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music060.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "61",
+		"Name": "Darkness Of The Unknown (Part 2)",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music061.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "62",
+		"Name": "Darkness Of The Unknown (Part 3)",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music062.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "63",
+		"Name": "The 13th Reflection",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music063.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "64",
+		"Name": "What A Surprise",
+		"Description": "Christmas Town Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music064.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "65",
+		"Name": "Happy Holidays",
+		"Description": "Christmas Town Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music065.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "66",
+		"Name": "The Other Promise",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music066.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "67",
+		"Name": "Rage Awakened",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music067.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "68",
+		"Name": "Cavern Of Remembrance",
+		"Description": "Cavern Of Remembrance Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music068.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "69",
+		"Name": "Deep Anxiety",
+		"Description": "Cavern Of Remembrance Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music069.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "81",
+		"Name": "Beneath the Ground (Variation B)",
+		"Description": "Underworld Cups",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music081.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "82",
+		"Name": "The Escapade",
+		"Description": "Minigame",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music082.win32.scd",
+		"First Destination": "kh2_first\\original\\bgm\\"
+	},
+	{
+		"PC Number": "84",
+		"Name": "Arabian Daydream",
+		"Description": "Carpet Minigame",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music084.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "85",
+		"Name": "Byte Striking",
+		"Description": "Light Cycle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music085.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "86",
+		"Name": "Spooks Of Halloween Town",
+		"Description": "Halloween Town Battle",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music086.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "87",
+		"Name": "Dissapeared",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music087.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "88",
+		"Name": "Sora",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music088.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "89",
+		"Name": "Friends In My Heart",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music089.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "90",
+		"Name": "Riku",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music090.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "91",
+		"Name": "Kairi",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music091.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "92",
+		"Name": "A Walk In Adante",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music092.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "93",
+		"Name": "Villains Of A Sort",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music093.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "94",
+		"Name": "Organization XIII",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music094.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "95",
+		"Name": "Apprehension",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music095.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "96",
+		"Name": "Courage",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music096.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "97",
+		"Name": "Laughter and Merriment",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music097.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "98",
+		"Name": "Hesitation",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music098.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "99",
+		"Name": "Missing You",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music099.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "100",
+		"Name": "The Underworld",
+		"Description": "Underworld Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music100.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "101",
+		"Name": "Waltz Of The Damned",
+		"Description": "Beast Castle Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music101.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "102",
+		"Name": "What Lies Beneath",
+		"Description": "Underworld Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music102.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "103",
+		"Name": "Olympus Coliseum",
+		"Description": "Olympus Coliseum Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music103.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "104",
+		"Name": "Dance Of The Daring",
+		"Description": "Beast Castle Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music104.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "106",
+		"Name": "Under The Sea (Japanese)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music106.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "107",
+		"Name": "Ursula Revenge (Japanese)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music107.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "108",
+		"Name": "Part Of Your World (Japanese)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music108.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "109",
+		"Name": "A New Day Is Dawning (Japanese)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music109.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "110",
+		"Name": "The Encounter",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music110.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "111",
+		"Name": "Sinister Shadows",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music111.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "112",
+		"Name": "Fields of Honor",
+		"Description": "Land of Dragons Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music112.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "113",
+		"Name": "Swim This Way (Japanese)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music113.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "114",
+		"Name": "Tension Rising",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music114.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "115",
+		"Name": "The Corrupted",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music115.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "116",
+		"Name": "The Home Of Dragons",
+		"Description": "Land of Dragons Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music116.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "117",
+		"Name": "Rowdy Rumble",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music117.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "118",
+		"Name": "Lazy Afternoons",
+		"Description": "Twilight Town Field (Roxas)",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music118.win32.scd",
+		"First Destination": "kh2_first\\original\\bgm\\"
+	},
+	{
+		"PC Number": "119",
+		"Name": "Sinister Sundown",
+		"Description": "Twilight Town Battle (Roxas)",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music119.win32.scd",
+		"First Destination": "kh2_first\\original\\bgm\\"
+	},
+	{
+		"PC Number": "120",
+		"Name": "Beneath the Ground",
+		"Description": "Underworld Cups",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music120.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "121",
+		"Name": "Desire for All That Lost",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music121.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "122",
+		"Name": "Lets Sing And Dance (Part B)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music122.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "123",
+		"Name": "Lets Sing And Dance (Part B)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music123.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "124",
+		"Name": "Lets Sing And Dance",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music124.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "125",
+		"Name": "Lets Sing And Dance (Part C)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music125.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "127",
+		"Name": "A Day in Agrabah",
+		"Description": "Agrabah Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music127.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "128",
+		"Name": "Arabian Dream",
+		"Description": "Agrabah Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music128.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "129",
+		"Name": "Isn't It Lovely",
+		"Description": "Atlantica Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music129.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "130",
+		"Name": "Lets Sing And Dance (PS2 Album Version)",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music130.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "131",
+		"Name": "Dance to the Death",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music131.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "132",
+		"Name": "Beauty and the Beast",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music132.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "133",
+		"Name": "Magical Mystery",
+		"Description": "Mysterious Tower Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music133.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "134",
+		"Name": "Working Together (Mysterious Tower)",
+		"Description": "Mysterious Tower Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music134.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "135",
+		"Name": "Space Paranoids",
+		"Description": "Space Paranoids Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music135.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "136",
+		"Name": "Byte Bashing",
+		"Description": "Space Paranoids Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music136.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "137",
+		"Name": "A Twinkle in the Sky",
+		"Description": "World Map",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music137.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "138",
+		"Name": "Shipmeisters Shanty",
+		"Description": "Gummi Hangar",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music138.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "139",
+		"Name": "Gearing Up",
+		"Description": "Gummi Hangar",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music139.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "141",
+		"Name": "Winnie The Pooh",
+		"Description": "100 Acre Wood Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music141.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "142",
+		"Name": "Crossing the Finish Line",
+		"Description": "Gummi Ship",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music142.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "143",
+		"Name": "Mickey Mouse Club March",
+		"Description": "Disney Castle Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music143.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "144",
+		"Name": "This Is Halloween",
+		"Description": "Halloween Town Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music144.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "145",
+		"Name": "Vim and Vigor",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music145.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "146",
+		"Name": "Roxas",
+		"Description": "Cutscene",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music146.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "148",
+		"Name": "Blast Off!",
+		"Description": "Gummi Hangar",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music148.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "149",
+		"Name": "Spooks Of Halloween Town",
+		"Description": "Halloween Town Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music149.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "151",
+		"Name": "The 13th Struggle",
+		"Description": "Event Battle/Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music151.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "152",
+		"Name": "Reviving Hollow Bastion",
+		"Description": "Hollow Bastion Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music152.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "153",
+		"Name": "Scherzo Di Notte",
+		"Description": "Hollow Bastion Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music153.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "154",
+		"Name": "Nights Of The Cursed",
+		"Description": "Port Royal Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music154.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "155",
+		"Name": "He Is A Pirate (No Intro)",
+		"Description": "Port Royal Battle",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music155.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "158",
+		"Name": "Bounce-O-Rama",
+		"Description": "100 Acre Wood Minigame",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music158.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "159",
+		"Name": "Bounce-O-Rama (Speed Up Version)",
+		"Description": "100 Acre Wood Minigame",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music159.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "164",
+		"Name": "Road To Hero",
+		"Description": "Olympus Coliseum Minigame",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music164.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "185",
+		"Name": "The 13th Dilemma",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music185.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "186",
+		"Name": "Adventures In The Savannah",
+		"Description": "Pride Lands Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music186.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "187",
+		"Name": "Savannah Pride",
+		"Description": "Pride Lands Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music187.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "188",
+		"Name": "One Winged Angel",
+		"Description": "Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music188.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "189",
+		"Name": "Monochrome Dreams",
+		"Description": "Timeless River Field",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music189.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "190",
+		"Name": "Old Friends, Old Rivals",
+		"Description": "Timeless River Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music190.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "506",
+		"Name": "Under The Sea",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music506.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "507",
+		"Name": "Ursula Revenge",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music507.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "508",
+		"Name": "Part Of Your World",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music508.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "509",
+		"Name": "A New Day Is Dawning",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music509.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "513",
+		"Name": "Swim This Way",
+		"Description": "Atlantica Minigame",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music513.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "517",
+		"Name": "Rowdy Rumble (Timeless River)",
+		"Description": "Timeless River Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music517.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "521",
+		"Name": "Desire For All That Lost (Timeless River)",
+		"Description": "Timeless River Boss",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music521.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "530",
+		"Name": "He Is A Pirate",
+		"Description": "Port Royal Battle",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "music530.win32.scd",
+		"First Destination": "kh2_fifth\\original\\bgm\\"
+	},
+	{
+		"PC Number": "End_Piano",
+		"Name": "Dearly Beloved Reprise",
+		"Description": "Battle Report",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "End_Piano.win32.scd",
+		"First Destination": "kh2_sixth\\original\\vagstream\\"
+	},
+	{
+		"PC Number": "GM1",
+		"Name": "Asteroids Attack",
+		"Description": "Gummi Ship",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "GM1_Asteroid.win32.scd",
+		"First Destination": "kh2_sixth\\original\\vagstream\\"
+	},
+	{
+		"PC Number": "GM2",
+		"Name": "Hazardous Highway",
+		"Description": "Gummi Ship",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "GM2_Highway.win32.scd",
+		"First Destination": "kh2_sixth\\original\\vagstream\\"
+	},
+	{
+		"PC Number": "GM3",
+		"Name": "Cloudchasers",
+		"Description": "Gummi Ship",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "GM3_Cloud.win32.scd",
+		"First Destination": "kh2_sixth\\original\\vagstream\\"
+	},
+	{
+		"PC Number": "GM4",
+		"Name": "Floating in Bliss",
+		"Description": "Gummi Ship",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "GM4_Floating.win32.scd",
+		"First Destination": "kh2_sixth\\original\\vagstream\\"
+	},
+	{
+		"PC Number": "GM5",
+		"Name": "Battleship Bravery",
+		"Description": "Gummi Ship",
+		"Changed": "Y",
+		"Main": "Y",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "GM5_Senkan.win32.scd",
+		"First Destination": "kh2_sixth\\original\\vagstream\\"
+	},
+	{
+		"PC Number": "Title",
+		"Name": "Dearly Beloved",
+		"Description": "Title",
+		"Changed": "Y",
+		"Main": "N",
+		"Versions": "[\"Classic\", \"Remastered\"]",
+		"File": "Title.win32.scd",
+		"First Destination": "kh2_first\\original\\vagstream\\"
+	}
+]
