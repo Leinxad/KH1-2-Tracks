@@ -9,6 +9,8 @@ on:
       - 'kh2/tracks/Classic/**/*.scd'
       - 'kh2/tracks/Remastered/**/*.scd'
       - 'kh1/raw/**'
+      - 'kh1soundtrack.lua'
+      - 'kh2soundtrack.lua'
   workflow_dispatch:
     inputs:
       build_all:
@@ -29,40 +31,51 @@ jobs:
       - name: Detect affected folders
         id: changed
         run: |
+          changed_files=""
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.build_all }}" = "true" ]; then
             folders=$(find kh1/tracks kh2/tracks -mindepth 1 -maxdepth 1 -type d \
               | grep -E '/(Classic|Remastered)$' | sort)
-            kh1_raw_changed=true
+            switcher_games="kh1 kh2"
           else
+            changed_files=$(git diff --name-only HEAD~1 HEAD)
             folders=$(git diff --name-only HEAD~1 HEAD \
               | grep -E '^(kh1|kh2)/tracks/(Classic|Remastered)/.*\.scd$' \
               | sed -E 's|^(kh[12]/tracks/[^/]+)/.*|\1|' \
               | sort -u)
-            if git diff --name-only HEAD~1 HEAD | grep -q '^kh1/raw/'; then
-              kh1_raw_changed=true
-            else
-              kh1_raw_changed=false
+            switcher_games=""
+            if echo "$changed_files" | grep -q '^kh1/raw/'; then
+              switcher_games="$switcher_games kh1"
+            fi
+            if echo "$changed_files" | grep -q '^kh1soundtrack.lua$'; then
+              switcher_games="$switcher_games kh1"
+            fi
+            if echo "$changed_files" | grep -q '^kh2soundtrack.lua$'; then
+              switcher_games="$switcher_games kh2"
             fi
           fi
+          track_games=$(printf '%s\n' "$folders" | sed -n 's|^\(kh[12]\)/tracks/[^/]*$|\1|p' | sort -u)
+          switcher_games=$(printf '%s\n%s\n' "$track_games" "$switcher_games" | tr ' ' '\n' | sort -u | grep -v '^$')
           echo "folders<<EOF" >> "$GITHUB_OUTPUT"
           echo "$folders" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
-          echo "kh1_raw_changed=$kh1_raw_changed" >> "$GITHUB_OUTPUT"
+          echo "switcher_games<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$switcher_games" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "track_games<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$track_games" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
           folder_count=$(echo "$folders" | grep -c '.' || echo 0)
-          if [ "$kh1_raw_changed" = "true" ] && [ "$folder_count" -eq 0 ]; then
-            folder_count=1
+          switcher_count=$(echo "$switcher_games" | grep -c '.' || echo 0)
+          count=$folder_count
+          if [ "$switcher_count" -gt "$count" ]; then
+            count=$switcher_count
           fi
-          echo "count=$folder_count" >> "$GITHUB_OUTPUT"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
 
       - name: Build patches
         if: steps.changed.outputs.count != '0'
         run: |
           mkdir -p dist
-          if [ "${{ steps.changed.outputs.kh1_raw_changed }}" = "true" ]; then
-            affected_games="kh1"
-          else
-            affected_games=""
-          fi
           while IFS= read -r folder; do
             [ -z "$folder" ] && continue
             game=$(echo "$folder" | cut -d/ -f1)
@@ -91,14 +104,20 @@ jobs:
             done
             (cd "$tmp" && zip -r "../dist/${name}" .)
             rm -rf "$tmp"
-            affected_games="$affected_games $game"
           done <<< "${{ steps.changed.outputs.folders }}"
-          for game in $(echo "$affected_games" | tr ' ' '\n' | sort -u | grep -v '^$'); do
+          for game in $(echo "${{ steps.changed.outputs.switcher_games }}" | tr ' ' '\n' | sort -u | grep -v '^$'); do
             ext="${game}pcpatch"
             name="${game}-Switcher.${ext}"
             echo "Building $name..."
             tmp="tmp_${game}_Switcher"
             rm -rf "$tmp" && mkdir -p "$tmp"
+            lua_file="${game}soundtrack.lua"
+            if [ ! -f "$lua_file" ]; then
+              echo "Missing $lua_file" >&2
+              exit 1
+            fi
+            mkdir -p "$tmp/scripts"
+            cp "$lua_file" "$tmp/scripts/$lua_file"
             jq -c '.[]' "${game}.json" | while IFS= read -r row; do
               changed=$(echo "$row" | jq -r '.Changed')
               [ "$changed" != "Y" ] && continue
