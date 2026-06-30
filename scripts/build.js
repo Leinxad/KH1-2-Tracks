@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs'
-import { join, resolve, dirname } from 'path'
+import { join, resolve, dirname, basename } from 'path'
 import { fileURLToPath } from 'url'
 import JSZip from 'jszip'
 
@@ -31,7 +31,7 @@ const GAMES = {
     tracksDir: join(ROOT, 'kh1', 'tracks'),
     rawDir: join(ROOT, 'kh1', 'raw'),
     luaFile: join(ROOT, 'kh1soundtrack.lua'),
-    luaScriptPath: 'scripts/kh1soundtrack.lua',
+    modYmlFile: join(ROOT, 'kh1', 'mod.yml'),
     ext: 'kh1pcpatch',
     emptyDirs: ['kh1_second/original/.gitkeep', 'kh1_first/original/.gitkeep'],
     switcherPath(normalizedDest, version) {
@@ -44,7 +44,7 @@ const GAMES = {
     json: join(ROOT, 'kh2.json'),
     tracksDir: join(ROOT, 'kh2', 'tracks'),
     luaFile: join(ROOT, 'kh2soundtrack.lua'),
-    luaScriptPath: 'scripts/kh2soundtrack.lua',
+    modYmlFile: join(ROOT, 'kh2', 'mod.yml'),
     ext: 'kh2pcpatch',
     emptyDirs: [
       'kh2_fifth/remastered/.gitkeep',
@@ -97,11 +97,16 @@ async function buildSwitcherPatch(rows, game) {
   const zip = new JSZip()
   for (const placeholder of game.emptyDirs) zip.file(placeholder, '')
 
-  // Bundle the Lua script so OpenKH Mods Manager installs it automatically.
+  // Bundle the Lua script and mod.yml at the root of the zip.
   if (existsSync(game.luaFile)) {
-    zip.file(game.luaScriptPath, readFileSync(game.luaFile))
+    zip.file(basename(game.luaFile), readFileSync(game.luaFile))
   } else {
     console.warn(`  [WARN] Missing Lua script: ${game.luaFile}`)
+  }
+  if (existsSync(game.modYmlFile)) {
+    zip.file('mod.yml', readFileSync(game.modYmlFile))
+  } else {
+    console.warn(`  [WARN] Missing mod.yml: ${game.modYmlFile}`)
   }
 
   for (const row of rows) {
@@ -173,7 +178,7 @@ async function main() {
     if (typeFilter.size === 0 || typeFilter.has('Switcher')) {
       console.log(`Building ${gameId}-Switcher…`)
       const buf = await buildSwitcherPatch(rows, game)
-      const out = join(outDir, `${gameId}-Switcher.${game.ext}`)
+      const out = join(outDir, `${gameId}-Switcher.zip`)
       writeFileSync(out, buf)
       console.log(`  → ${out} (${mb(buf)} MB)`)
     }
