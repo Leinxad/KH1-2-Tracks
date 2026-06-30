@@ -64,8 +64,8 @@ jobs:
           echo "track_games<<EOF" >> "$GITHUB_OUTPUT"
           echo "$track_games" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
-          folder_count=$(echo "$folders" | grep -c '.' || echo 0)
-          switcher_count=$(echo "$switcher_games" | grep -c '.' || echo 0)
+          folder_count=$(echo "$folders" | grep -c '.') || folder_count=0
+          switcher_count=$(echo "$switcher_games" | grep -c '.') || switcher_count=0
           count=$folder_count
           if [ "$switcher_count" -gt "$count" ]; then
             count=$switcher_count
