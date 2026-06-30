@@ -19,7 +19,7 @@ local COMBO_CLASSIC    = 0x1201  -- Select+R2+Triangle
 local COMBO_REMASTERED = 0x2201  -- Select+R2+Circle
 
 -- Config file stores the last selected soundtrack so it persists across sessions.
-local CONFIG_PATH = "scripts/kh1/kh1soundtrack.cfg"
+local CONFIG_PATH = debug.getinfo(1, "S").source:match("@?(.*[/\\])") .. "kh1soundtrack.cfg"
 
 local function LoadConfig()
     local f = io.open(CONFIG_PATH, "r")
@@ -31,7 +31,7 @@ local function LoadConfig()
             return sel
         end
     end
-    return "remastered"
+    return "custom"
 end
 
 local function SaveConfig(selection)
@@ -80,7 +80,7 @@ local function WriteSoundtrack(selection)
         ConsolePrint("KH1FM: addresses not ready yet, combo ignored")
         return
     end
-    local s = STRINGS[selection] or STRINGS.remastered
+    local s = STRINGS[selection] or STRINGS.custom
     WriteArrayA(musicAddr, StringToBytes(s.music))
     WriteArrayA(diveAddr,  StringToBytes(s.dive))
     WriteArrayA(titleAddr, StringToBytes(s.title))
