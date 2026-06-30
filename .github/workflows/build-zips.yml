@@ -72,107 +72,35 @@ jobs:
           fi
           echo "count=$count" >> "$GITHUB_OUTPUT"
 
+      - uses: actions/setup-node@v4
+        if: steps.changed.outputs.count != '0'
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        if: steps.changed.outputs.count != '0'
+        run: npm ci
+
       - name: Build patches
         if: steps.changed.outputs.count != '0'
         run: |
           mkdir -p dist
+
+          # Build Classic / Remastered patches for changed track folders.
           while IFS= read -r folder; do
             [ -z "$folder" ] && continue
             game=$(echo "$folder" | cut -d/ -f1)
             version=$(echo "$folder" | cut -d/ -f3)
-            ext="${game}pcpatch"
-            name="${game}-${version}.${ext}"
-            echo "Building $name..."
-            tmp="tmp_${game}_${version}"
-            rm -rf "$tmp" && mkdir -p "$tmp"
-            jq -c '.[]' "${game}.json" | while IFS= read -r row; do
-              changed=$(echo "$row" | jq -r '.Changed')
-              [ "$changed" != "Y" ] && continue
-              file=$(echo "$row" | jq -r '.File')
-              scd="${folder}/${file}"
-              [ ! -f "$scd" ] && continue
-              first=$(echo "$row" | jq -r '."First Destination"')
-              second=$(echo "$row" | jq -r '."Second Destination"')
-              for dest_raw in "$first" "$second"; do
-                [ "$dest_raw" = '""' ] && continue
-                [ "$dest_raw" = "null" ] && continue
-                [ -z "$dest_raw" ] && continue
-                dest=$(echo "$dest_raw" | tr '\\' '/')
-                mkdir -p "${tmp}/${dest}"
-                cp "$scd" "${tmp}/${dest}${file}"
-              done
-            done
-            (cd "$tmp" && zip -r "../dist/${name}" .)
-            rm -rf "$tmp"
+            node scripts/build.js --out=dist --game="$game" --type="$version"
           done <<< "${{ steps.changed.outputs.folders }}"
-          for game in $(echo "${{ steps.changed.outputs.switcher_games }}" | tr ' ' '\n' | sort -u | grep -v '^$'); do
-            ext="${game}pcpatch"
-            name="${game}-Switcher.${ext}"
-            echo "Building $name..."
-            tmp="tmp_${game}_Switcher"
-            rm -rf "$tmp" && mkdir -p "$tmp"
-            lua_file="${game}soundtrack.lua"
-            if [ ! -f "$lua_file" ]; then
-              echo "Missing $lua_file" >&2
-              exit 1
-            fi
-            mkdir -p "$tmp/scripts"
-            cp "$lua_file" "$tmp/scripts/$lua_file"
-            jq -c '.[]' "${game}.json" | while IFS= read -r row; do
-              changed=$(echo "$row" | jq -r '.Changed')
-              [ "$changed" != "Y" ] && continue
-              file=$(echo "$row" | jq -r '.File')
-              first=$(echo "$row" | jq -r '."First Destination"')
-              second=$(echo "$row" | jq -r '."Second Destination"')
-              for dest_raw in "$first" "$second"; do
-                [ "$dest_raw" = '""' ] && continue
-                [ "$dest_raw" = "null" ] && continue
-                [ -z "$dest_raw" ] && continue
-                dest=$(echo "$dest_raw" | tr '\\' '/')
-                classic_dest=$(echo "$dest" | sed 's|/bgm/|/bg2/|; s|/vagstream/|/vagstrea2/|; s|/amusic/|/amusi2/|')
-                remastered_dest=$(echo "$dest" | sed 's|/bgm/|/bg3/|; s|/vagstream/|/vagstrea3/|; s|/amusic/|/amusi3/|')
-                [ "$classic_dest" = "$dest" ] && continue
-                classic_scd="${game}/tracks/Classic/${file}"
-                remastered_scd="${game}/tracks/Remastered/${file}"
-                if [ -f "$classic_scd" ]; then
-                  mkdir -p "${tmp}/${classic_dest}"
-                  cp "$classic_scd" "${tmp}/${classic_dest}${file}"
-                fi
-                if [ -f "$remastered_scd" ]; then
-                  mkdir -p "${tmp}/${remastered_dest}"
-                  cp "$remastered_scd" "${tmp}/${remastered_dest}${file}"
-                fi
-              done
-            done
-            if [ "$game" = "kh1" ] && [ -d "kh1/raw" ]; then
-              for raw_file in kh1/raw/*; do
-                [ -f "$raw_file" ] || continue
-                raw_name=$(basename "$raw_file")
-                jq -c '.[] | select(.Changed == "Y")' kh1.json | while IFS= read -r raw_row; do
-                  raw_first=$(echo "$raw_row" | jq -r '."First Destination"')
-                  raw_second=$(echo "$raw_row" | jq -r '."Second Destination"')
-                  for raw_dest_raw in "$raw_first" "$raw_second"; do
-                    [ "$raw_dest_raw" = '""' ] && continue
-                    [ "$raw_dest_raw" = "null" ] && continue
-                    [ -z "$raw_dest_raw" ] && continue
-                    raw_dest=$(echo "$raw_dest_raw" | tr '\\' '/')
-                    echo "$raw_dest" | grep -qF "/${raw_name}/" || continue
-                    raw_classic=$(echo "$raw_dest" | sed 's|/remastered/|/raw/|; s|/amusic/|/amusi2/|')
-                    raw_remastered=$(echo "$raw_dest" | sed 's|/remastered/|/raw/|; s|/amusic/|/amusi3/|')
-                    [ "$raw_classic" = "$raw_dest" ] && continue
-                    raw_classic_file="${raw_classic%/}"
-                    raw_remastered_file="${raw_remastered%/}"
-                    mkdir -p "${tmp}/$(dirname "$raw_classic_file")"
-                    cp "$raw_file" "${tmp}/${raw_classic_file}"
-                    mkdir -p "${tmp}/$(dirname "$raw_remastered_file")"
-                    cp "$raw_file" "${tmp}/${raw_remastered_file}"
-                  done
-                done
-              done
-            fi
-            (cd "$tmp" && zip -r "../dist/${name}" .)
-            rm -rf "$tmp"
-          done
+
+          # Build Switcher patches for games with changed tracks / lua / raw files.
+          while IFS= read -r game; do
+            [ -z "$game" ] && continue
+            node scripts/build.js --out=dist --game="$game" --type=Switcher
+          done <<< "${{ steps.changed.outputs.switcher_games }}"
 
       - name: Upload patches as artifact
         if: steps.changed.outputs.count != '0'

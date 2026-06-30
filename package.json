@@ -1,0 +1,13 @@
+{
+  "name": "kh1-2-tracks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:webapp": "node scripts/build.js --out=../KH-1-2-Classic-Soundtrack-Mods/public/patches"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
+}
