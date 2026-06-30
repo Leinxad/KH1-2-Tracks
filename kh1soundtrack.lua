@@ -18,32 +18,6 @@ local COMBO_CUSTOM     = 0x0281  -- Select+R2+Square
 local COMBO_CLASSIC    = 0x1201  -- Select+R2+Triangle
 local COMBO_REMASTERED = 0x2201  -- Select+R2+Circle
 
--- Config file stores the last selected soundtrack so it persists across sessions.
-local CONFIG_PATH = debug.getinfo(1, "S").source:match("@?(.*[/\\])") .. "kh1soundtrack.cfg"
-
-local function LoadConfig()
-    local f = io.open(CONFIG_PATH, "r")
-    if f then
-        local sel = f:read("*l")
-        f:close()
-        if sel == "custom" or sel == "classic" or sel == "remastered" then
-            ConsolePrint("KH1FM: loaded config -> " .. sel)
-            return sel
-        end
-    end
-    return "custom"
-end
-
-local function SaveConfig(selection)
-    local f = io.open(CONFIG_PATH, "w")
-    if f then
-        f:write(selection)
-        f:close()
-    else
-        ConsolePrint("KH1FM: warning – could not write config to " .. CONFIG_PATH)
-    end
-end
-
 -- Convert a Lua string to a null-terminated byte array for WriteArrayA.
 local function StringToBytes(s)
     local t = {}
@@ -89,7 +63,6 @@ end
 -- Apply a soundtrack selection: write bytes to memory and persist the choice.
 local function ApplySoundtrack(selection)
     WriteSoundtrack(selection)
-    SaveConfig(selection)
     ConsolePrint("KH1FM soundtrack -> " .. selection)
     if musicAddr then
         ConsolePrint("KH1FM: music=\""  .. ReadStr(musicAddr, 32) .. "\"")
@@ -126,7 +99,7 @@ function _OnInit()
                     musicAddr = BASE_ADDR + v[3]
                     diveAddr  = BASE_ADDR + v[4]
                     titleAddr = BASE_ADDR + v[5]
-                    ApplySoundtrack(LoadConfig())
+                    ApplySoundtrack("custom")
                 end
                 break
             end
