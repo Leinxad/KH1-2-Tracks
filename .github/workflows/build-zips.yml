@@ -107,7 +107,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: track-patches
-          path: dist/*pcpatch
+          path: |
+            dist/*pcpatch
+            dist/*-Switcher.zip
           retention-days: 1
 
       - name: No changes detected
@@ -132,7 +134,8 @@ jobs:
         if: steps.download.outcome == 'success'
         run: |
           gh release create tracks --title "Track Bundles" --notes "Auto-generated track patch bundles." 2>/dev/null || true
-          for f in *pcpatch; do
+          for f in *pcpatch *-Switcher.zip; do
+            [ -e "$f" ] || continue
             echo "Uploading $f..."
             gh release upload tracks "$f" --clobber
           done
