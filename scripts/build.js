@@ -33,7 +33,8 @@ const GAMES = {
     luaFile: join(ROOT, 'kh1soundtrack.lua'),
     modYmlFile: join(ROOT, 'kh1', 'mod.yml'),
     ext: 'kh1pcpatch',
-    emptyDirs: ['kh1_second/original/.gitkeep', 'kh1_first/original/.gitkeep'],
+    emptyDirs: [],
+    switcherEmptyDirs: ['kh1_second/original/.gitkeep', 'kh1_first/original/.gitkeep'],
     switcherPath(normalizedDest, version) {
       const suffix = version === 'Classic' ? '2' : '3'
       // Segment /amusic/ appears in the middle of every KH1 path.
@@ -46,11 +47,8 @@ const GAMES = {
     luaFile: join(ROOT, 'kh2soundtrack.lua'),
     modYmlFile: join(ROOT, 'kh2', 'mod.yml'),
     ext: 'kh2pcpatch',
-    emptyDirs: [
-      'kh2_fifth/remastered/.gitkeep',
-      'kh2_first/remastered/.gitkeep',
-      'kh2_sixth/remastered/.gitkeep',
-    ],
+    emptyDirs: [],
+    switcherEmptyDirs: [],
     switcherPath(normalizedDest, version) {
       const suffix = version === 'Classic' ? '2' : '3'
       // Paths end with /bgm or /vagstream (trailing slash stripped by normalizeDest).
@@ -75,13 +73,13 @@ function readTrack(tracksDir, version, file) {
   return readFileSync(p)
 }
 
-async function buildVersionPatch(rows, tracksDir, version, emptyDirs) {
+async function buildVersionPatch(rows, game, version) {
   const zip = new JSZip()
-  for (const placeholder of emptyDirs) zip.file(placeholder, '')
+  for (const placeholder of game.emptyDirs) zip.file(placeholder, '')
 
   for (const row of rows) {
     if (row.Changed !== 'Y') continue
-    const data = readTrack(tracksDir, version, row.File)
+    const data = readTrack(game.tracksDir, version, row.File)
     if (!data) continue
 
     for (const key of ['First Destination', 'Second Destination']) {
@@ -95,7 +93,7 @@ async function buildVersionPatch(rows, tracksDir, version, emptyDirs) {
 
 async function buildSwitcherPatch(rows, game) {
   const zip = new JSZip()
-  for (const placeholder of game.emptyDirs) zip.file(placeholder, '')
+  for (const placeholder of game.switcherEmptyDirs) zip.file(placeholder, '')
 
   // Bundle the Lua script and mod.yml at the root of the zip.
   if (existsSync(game.luaFile)) {
@@ -169,7 +167,7 @@ async function main() {
     for (const version of ['Classic', 'Remastered']) {
       if (typeFilter.size > 0 && !typeFilter.has(version)) continue
       console.log(`Building ${gameId}-${version}…`)
-      const buf = await buildVersionPatch(rows, game.tracksDir, version, game.emptyDirs)
+      const buf = await buildVersionPatch(rows, game, version)
       const out = join(outDir, `${gameId}-${version}.${game.ext}`)
       writeFileSync(out, buf)
       console.log(`  → ${out} (${mb(buf)} MB)`)
