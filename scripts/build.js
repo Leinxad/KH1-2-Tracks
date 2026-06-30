@@ -51,10 +51,10 @@ const GAMES = {
     switcherEmptyDirs: [],
     switcherPath(normalizedDest, version) {
       const suffix = version === 'Classic' ? '2' : '3'
-      // Paths end with /bgm or /vagstream (trailing slash stripped by normalizeDest).
+      const lastSegment = normalizedDest.split('/').pop()
+      if (lastSegment === 'bgm') return `bg${suffix}`
+      if (lastSegment === 'vagstream') return `vagstrea${suffix}`
       return normalizedDest
-        .replace('/bgm', `/bg${suffix}`)
-        .replace('/vagstream', `/vagstrea${suffix}`)
     },
   },
 }
