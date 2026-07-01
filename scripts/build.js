@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs'
-import { join, resolve, dirname, basename } from 'path'
+import { join, resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import JSZip from 'jszip'
 
@@ -31,10 +31,8 @@ const GAMES = {
     tracksDir: join(ROOT, 'kh1', 'tracks'),
     rawDir: join(ROOT, 'kh1', 'raw'),
     luaFile: join(ROOT, 'kh1soundtrack.lua'),
-    modYmlFile: join(ROOT, 'kh1', 'mod.yml'),
+    luaScriptPath: 'special/scripts/kh1soundtrack.lua',
     ext: 'kh1pcpatch',
-    emptyDirs: [],
-    switcherEmptyDirs: ['kh1_second/original/.gitkeep', 'kh1_first/original/.gitkeep'],
     switcherPath(normalizedDest, version) {
       const suffix = version === 'Classic' ? '2' : '3'
       // Segment /amusic/ appears in the middle of every KH1 path.
@@ -45,16 +43,14 @@ const GAMES = {
     json: join(ROOT, 'kh2.json'),
     tracksDir: join(ROOT, 'kh2', 'tracks'),
     luaFile: join(ROOT, 'kh2soundtrack.lua'),
-    modYmlFile: join(ROOT, 'kh2', 'mod.yml'),
+    luaScriptPath: 'special/scripts/kh2soundtrack.lua',
     ext: 'kh2pcpatch',
-    emptyDirs: [],
-    switcherEmptyDirs: [],
     switcherPath(normalizedDest, version) {
       const suffix = version === 'Classic' ? '2' : '3'
-      const lastSegment = normalizedDest.split('/').pop()
-      if (lastSegment === 'bgm') return `bg${suffix}`
-      if (lastSegment === 'vagstream') return `vagstrea${suffix}`
+      // Paths end with /bgm or /vagstream (trailing slash stripped by normalizeDest).
       return normalizedDest
+        .replace('/bgm', `/bg${suffix}`)
+        .replace('/vagstream', `/vagstrea${suffix}`)
     },
   },
 }
@@ -73,13 +69,12 @@ function readTrack(tracksDir, version, file) {
   return readFileSync(p)
 }
 
-async function buildVersionPatch(rows, game, version) {
+async function buildVersionPatch(rows, tracksDir, version) {
   const zip = new JSZip()
-  for (const placeholder of game.emptyDirs) zip.file(placeholder, '')
 
   for (const row of rows) {
     if (row.Changed !== 'Y') continue
-    const data = readTrack(game.tracksDir, version, row.File)
+    const data = readTrack(tracksDir, version, row.File)
     if (!data) continue
 
     for (const key of ['First Destination', 'Second Destination']) {
@@ -93,18 +88,12 @@ async function buildVersionPatch(rows, game, version) {
 
 async function buildSwitcherPatch(rows, game) {
   const zip = new JSZip()
-  for (const placeholder of game.switcherEmptyDirs) zip.file(placeholder, '')
 
-  // Bundle the Lua script and mod.yml at the root of the zip.
+  // Bundle the Lua script so OpenKH Mods Manager installs it automatically.
   if (existsSync(game.luaFile)) {
-    zip.file(basename(game.luaFile), readFileSync(game.luaFile))
+    zip.file(game.luaScriptPath, readFileSync(game.luaFile))
   } else {
     console.warn(`  [WARN] Missing Lua script: ${game.luaFile}`)
-  }
-  if (existsSync(game.modYmlFile)) {
-    zip.file('mod.yml', readFileSync(game.modYmlFile))
-  } else {
-    console.warn(`  [WARN] Missing mod.yml: ${game.modYmlFile}`)
   }
 
   for (const row of rows) {
@@ -167,7 +156,7 @@ async function main() {
     for (const version of ['Classic', 'Remastered']) {
       if (typeFilter.size > 0 && !typeFilter.has(version)) continue
       console.log(`Building ${gameId}-${version}…`)
-      const buf = await buildVersionPatch(rows, game, version)
+      const buf = await buildVersionPatch(rows, game.tracksDir, version)
       const out = join(outDir, `${gameId}-${version}.${game.ext}`)
       writeFileSync(out, buf)
       console.log(`  → ${out} (${mb(buf)} MB)`)
@@ -176,7 +165,7 @@ async function main() {
     if (typeFilter.size === 0 || typeFilter.has('Switcher')) {
       console.log(`Building ${gameId}-Switcher…`)
       const buf = await buildSwitcherPatch(rows, game)
-      const out = join(outDir, `${gameId}-Switcher.zip`)
+      const out = join(outDir, `${gameId}-Switcher.${game.ext}`)
       writeFileSync(out, buf)
       console.log(`  → ${out} (${mb(buf)} MB)`)
     }
