@@ -9,9 +9,11 @@ LUAGUI_DESC = "Switch KH2FM between Custom, Classic and Remastered soundtracks"
 --   Select + R2 + Square    ->  custom      (OpenKH/modded audio  -> prefixes: bgm   / vagstream)
 --   Select + R2 + Triangle  ->  classic     (PS2 classic audio    -> prefixes: bg2   / vagstrea2)
 --   Select + R2 + Circle    ->  remastered  (HD remastered audio  -> prefixes: bg3   / vagstrea3)
--- Defaults to custom on each script load.
+-- The selection is saved to %APPDATA%\kh2_soundtrack_switcher\kh2_soundtrack_pack.txt
+-- and reloaded on each script load; defaults to (and recreates the file with)
+-- "custom" if the file is missing, blank, or unrecognised.
 --
--- Press F1 while the game is running to reload and re-apply the default.
+-- Press F1 while the game is running to reload and re-apply the saved selection.
 
 -- In-game button combos (PS bitmask: Select=0x0001, R2=0x0200, Square=0x0080, Triangle=0x1000, Circle=0x2000)
 local COMBO_CUSTOM     = 0x0281  -- Select+R2+Square
@@ -74,6 +76,38 @@ local reportAddr = nil
 local titleAddr  = nil
 local lastInput  = 0
 
+-- Save file lives under %APPDATA%\kh2_soundtrack_switcher, so the selection persists across reloads/sessions.
+local SAVE_DIR  = (os.getenv("APPDATA") or ".") .. "\\kh2_soundtrack_switcher"
+local SAVE_FILE = SAVE_DIR .. "\\kh2_soundtrack_pack.txt"
+
+local function EnsureSaveDir()
+    os.execute('if not exist "' .. SAVE_DIR .. '" mkdir "' .. SAVE_DIR .. '"')
+end
+
+-- Persist the current selection to SAVE_FILE.
+local function SaveSelection(selection)
+    EnsureSaveDir()
+    local f = io.open(SAVE_FILE, "w")
+    if f then
+        f:write(selection)
+        f:close()
+    end
+end
+
+-- Read the saved selection from SAVE_FILE. If the file is missing, blank, or
+-- holds an unrecognised value, (re)create it with "custom" as the default.
+local function LoadOrInitSelection()
+    local f = io.open(SAVE_FILE, "r")
+    local selection = f and f:read("*l") or nil
+    if f then f:close() end
+    if selection then selection = selection:match("^%s*(.-)%s*$") end
+    if not selection or selection == "" or not STRINGS[selection] then
+        selection = "custom"
+        SaveSelection(selection)
+    end
+    return selection
+end
+
 local function ReadStr(addr, len)
     local bytes = ReadArrayA(addr, len)
     local s = ""
@@ -106,6 +140,7 @@ end
 -- Apply a soundtrack selection: write bytes to memory and persist the choice.
 local function ApplySoundtrack(selection)
     WriteSoundtrack(selection)
+    SaveSelection(selection)
     ConsolePrint("KH2FM soundtrack -> " .. selection)
     if musicAddr then
         ConsolePrint("KH2FM: vsb118=\"" .. ReadStr(vsb118Addr, 40) .. "\"")
@@ -159,7 +194,7 @@ function _OnInit()
                         gummi5Addr = BASE_ADDR + v[11]
                         reportAddr = BASE_ADDR + v[12]
                         titleAddr  = BASE_ADDR + v[13]
-                        ApplySoundtrack("custom")
+                        ApplySoundtrack(LoadOrInitSelection())
                     end
                     break
                 end
