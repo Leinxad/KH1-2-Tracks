@@ -8,7 +8,6 @@ on:
       - 'kh1/tracks/Remastered/**/*.scd'
       - 'kh2/tracks/Classic/**/*.scd'
       - 'kh2/tracks/Remastered/**/*.scd'
-      - 'kh1/raw/**'
       - 'kh1soundtrack.lua'
       - 'kh2soundtrack.lua'
   workflow_dispatch:
@@ -43,9 +42,6 @@ jobs:
               | sed -E 's|^(kh[12]/tracks/[^/]+)/.*|\1|' \
               | sort -u)
             switcher_games=""
-            if echo "$changed_files" | grep -q '^kh1/raw/'; then
-              switcher_games="$switcher_games kh1"
-            fi
             if echo "$changed_files" | grep -q '^kh1soundtrack.lua$'; then
               switcher_games="$switcher_games kh1"
             fi
@@ -96,7 +92,7 @@ jobs:
             node scripts/build.js --out=dist --game="$game" --type="$version"
           done <<< "${{ steps.changed.outputs.folders }}"
 
-          # Build Switcher patches for games with changed tracks / lua / raw files.
+          # Build Switcher patches for games with changed tracks / lua files.
           while IFS= read -r game; do
             [ -z "$game" ] && continue
             node scripts/build.js --out=dist --game="$game" --type=Switcher

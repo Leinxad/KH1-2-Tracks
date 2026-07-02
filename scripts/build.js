@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
 import { join, resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import JSZip from 'jszip'
@@ -20,24 +20,23 @@ const typeFilter = new Set(
   process.argv.filter(a => a.startsWith('--type=')).flatMap(a => a.slice(7).split(','))
 )
 
-// KH1: paths use "amusic" as the mod prefix segment.
-// Switcher replaces it with "amusi2" (Classic) or "amusi3" (Remastered).
-// KH2: paths use "bgm" or "vagstream" as the mod prefix segment.
-// Switcher replaces them with "bg2"/"bg3" and "vagstrea2"/"vagstrea3".
+// The Switcher patch places every soundtrack variant in the exact same folder as
+// the live (default) route, distinguished only by a numeric filename prefix:
+// 20 = Classic, 30 = Remastered (10 = custom is never shipped by the patch — the
+// in-game switcher script parks the user's original file under that prefix the
+// first time it switches away from custom). Whichever variant is "live" has no
+// prefix at all, so the Classic/Remastered patches (built by buildVersionPatch)
+// already write exactly what a live file looks like.
+
+const SWITCHER_PREFIXES = { Classic: '20', Remastered: '30' }
 
 const GAMES = {
   kh1: {
     json: join(ROOT, 'kh1.json'),
     tracksDir: join(ROOT, 'kh1', 'tracks'),
-    rawDir: join(ROOT, 'kh1', 'raw'),
     luaFile: join(ROOT, 'kh1soundtrack.lua'),
     luaScriptPath: 'special/scripts/kh1soundtrack.lua',
     ext: 'kh1pcpatch',
-    switcherPath(normalizedDest, version) {
-      const suffix = version === 'Classic' ? '2' : '3'
-      // Segment /amusic/ appears in the middle of every KH1 path.
-      return normalizedDest.replace('/amusic/', `/amusi${suffix}/`)
-    },
   },
   kh2: {
     json: join(ROOT, 'kh2.json'),
@@ -45,13 +44,6 @@ const GAMES = {
     luaFile: join(ROOT, 'kh2soundtrack.lua'),
     luaScriptPath: 'special/scripts/kh2soundtrack.lua',
     ext: 'kh2pcpatch',
-    switcherPath(normalizedDest, version) {
-      const suffix = version === 'Classic' ? '2' : '3'
-      // Paths end with /bgm or /vagstream (trailing slash stripped by normalizeDest).
-      return normalizedDest
-        .replace('/bgm', `/bg${suffix}`)
-        .replace('/vagstream', `/vagstrea${suffix}`)
-    },
   },
 }
 
@@ -103,39 +95,11 @@ async function buildSwitcherPatch(rows, game) {
       const data = readTrack(game.tracksDir, version, row.File)
       if (!data) continue
 
+      const prefix = SWITCHER_PREFIXES[version]
       for (const key of ['First Destination', 'Second Destination']) {
         const dest = normalizeDest(row[key])
         if (!dest) continue
-        const switchedDest = game.switcherPath(dest, version)
-        if (switchedDest === dest) continue
-        zip.file(`${switchedDest}/${row.File}`, data)
-      }
-    }
-  }
-
-  // KH1-specific: bundle raw container files (.bgm / .dat) from kh1/raw/ at the
-  // switched "raw" prefix paths — mirrors what build-zips.yml does for the Switcher.
-  if (game.rawDir && existsSync(game.rawDir)) {
-    for (const rawName of readdirSync(game.rawDir)) {
-      const rawData = readFileSync(join(game.rawDir, rawName))
-
-      for (const row of rows) {
-        if (row.Changed !== 'Y') continue
-
-        for (const key of ['First Destination', 'Second Destination']) {
-          const dest = normalizeDest(row[key])
-          if (!dest || !dest.endsWith(`/${rawName}`)) continue
-
-          for (const version of ['Classic', 'Remastered']) {
-            const suffix = version === 'Classic' ? '2' : '3'
-            // Replace /remastered/ → /raw/ and /amusic/ → /amusi2|3/ in the dest.
-            const rawDest = dest
-              .replace('/remastered/', '/raw/')
-              .replace('/amusic/', `/amusi${suffix}/`)
-            if (rawDest === dest) continue
-            zip.file(rawDest, rawData)
-          }
-        }
+        zip.file(`${dest}/${prefix}${row.File}`, data)
       }
     }
   }
